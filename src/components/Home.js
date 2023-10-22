@@ -73,7 +73,7 @@ const Home = () => {
           const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
          // const safeService = new sapi.SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
       
-          const safeFactory = await SafeFactory.SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
+          const safeFactory = await SafeFactory.SafeFactory.create({ ethAdapter: ethAdapterOwner1 },{gasLimit:50000000})
           const safeAccountConfig = {
             owners: [
               await signer.getAddress(),
