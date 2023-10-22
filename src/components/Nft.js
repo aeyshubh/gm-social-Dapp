@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Contract, ethers } from 'ethers';
 
 function Nft(){
   const [nftLink , setLink] = useState();
@@ -14,11 +15,15 @@ function Nft(){
   }
 
   //This function will fetch nft associated with wallet address
-  function fetchNft(){
-    // axios.get(`https://polygon-mainnet.g.alchemy.com/nft/v2/OLgzd6IgyTBVkfCr4jw24GBbck9Rm0-H/getNFTs/?owner=${peeraddress}`)
-    //   .then((data)=>{
-    //       setLink(data.data.ownedNfts);
-    //   })
+  async function fetchNft(){
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.send("eth_requestAccounts", []); //This is used to pop up metamask accounts list
+    const account = accounts[0];
+    console.log("Inside NFT"+account);
+    axios.get(`https://polygon-mainnet.g.alchemy.com/nft/v2/OLgzd6IgyTBVkfCr4jw24GBbck9Rm0-H/getNFTs/?owner=${account}`)
+      .then((data)=>{
+          setLink(data.data.ownedNfts);
+      })
   }
 
   useEffect(() => {

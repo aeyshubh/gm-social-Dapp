@@ -31,7 +31,7 @@ export const sendToken = async(_cmd,receiver) =>{
         return sendDAI(myArray[1],receiver);
     }
     else if(myArray[2] === 'ape'){
-        return sendDAI(myArray[1],receiver);
+        return sendAPE(myArray[1],receiver);
     }
 }
 
@@ -54,9 +54,9 @@ export const sendAPE = async (_amount,_receiver) => {
     console.log(" Address :" + account);
     //const _receiver = "0x6f144c0628D2039f27F13604c583fAb72BEF197e";
     console.log("ReC = " + _receiver);
-    const tokenAddress = '0x4d224452801aced8b2f0aebe155379bb5d594381'; //APE Token Address
+    const tokenAddress = '0x328507DC29C95c170B56a1b3A758eB7a9E73455c'; //APE Token Address
     const tokenContract = new ethers.Contract(tokenAddress, abi2, signer);
-    await tokenContract.approve(account, _amount); const writen = await tokenContract.transfer(_receiver, ethers.utils.parseEther(_amount));
+    await tokenContract.approve(account, ethers.utils.parseUnits(_amount)); const writen = await tokenContract.transfer(_receiver, ethers.utils.parseEther(_amount));
     console.log("Written" + writen.hash);
     return writen.hash
 }

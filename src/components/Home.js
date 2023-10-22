@@ -12,6 +12,7 @@ import useStreamConversations from "../hooks/useStreamConversations";
 import { sendToken } from './Payment';
 import Nft from "./Nft";
 import { WalletContext } from "../contexts/WalletContext";
+import { abi } from "./ABI.js";
 const ethers = require('ethers');
 const EthersAdapter = require("@safe-global/protocol-kit")
 const sapi = require("@safe-global/api-kit")
@@ -41,6 +42,22 @@ const Home = () => {
 
     }
     else {
+      if("/stake"=== msgTxt.substring(0, 6)){
+        const myArray = msgTxt.split(" ");
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const accounts = await provider.send("eth_requestAccounts", []); //This is used to pop up metamask accounts list
+        const account = accounts[0];
+        console.log(" Address :" + account);
+        const tokenAddress = '0xeF37717B1807a253c6D140Aca0141404D23c26D4'; //APE Token Address
+        const tokenContract = new ethers.Contract(tokenAddress, abi, signer);
+        console.log(ethers.utils.parseUnits(myArray[1]));
+        const res = tokenContract.depositSelfApeCoin(ethers.utils.parseUnits(myArray[1]),{gasLimit : 500000});
+        console.log(res);
+        sendMessage("Transaction :  https://goerli.etherscan.io/tx/" + res)
+        setMsgTxt("");
+      }
+
       if ("/safe" === msgTxt.substring(0, 5)) {
         console.log("In ")
         console.log(`Selected Convo :` + selectedConvo)
@@ -77,8 +94,10 @@ const Home = () => {
           console.log(`Error is ${e}`);
         }
       }
-      sendMessage(msgTxt);
-      setMsgTxt("");
+      else{
+        sendMessage(msgTxt);
+        setMsgTxt("");
+      }
     }
 
   };
