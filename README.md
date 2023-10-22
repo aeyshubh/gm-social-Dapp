@@ -7,7 +7,7 @@ GM is a social Dapp created over XMTP network ,You can send and Stake ApeCoin us
 * Create a Multi-Sig wallet
 * Stake APE Crypto directly
 * Send Crypto[USDC/DAI/APE] money to Friend
-* Send NFT you Hold to show off obviously!
+* Send NFT you Hold to show off obviously! <br>
 All above feature can be accessed within the DAPP while chatting with friend by writing a single line command.
 * Example : "/pay 1 ape"
 
