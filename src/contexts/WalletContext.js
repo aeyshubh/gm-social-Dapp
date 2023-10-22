@@ -52,7 +52,7 @@ export const WalletContextProvider = ({ children }) => {
     cacheProvider: true, // optional
     providerOptions, // required
   });
-  console.log(selectedConvo);
+  console.log("sender",selectedConvo);
   return (
     <WalletContext.Provider
       value={{

@@ -1,4 +1,4 @@
-const ethers = require('ethers');
+/* const ethers = require('ethers');
 const EthersAdapter = require("@safe-global/protocol-kit")
 const sapi = require("@safe-global/api-kit")
 const SafeFactory = require("@safe-global/protocol-kit");
@@ -37,3 +37,4 @@ try{
   }catch(e){
     console.log(`Error is ${e}`);
   }
+ */

@@ -12,10 +12,11 @@ import useStreamConversations from "../hooks/useStreamConversations";
 import { sendToken } from './Payment';
 import Nft from "./Nft";
 import { WalletContext } from "../contexts/WalletContext";
-import { ethers } from 'ethers'
-import { EthersAdapter } from '@safe-global/protocol-kit'
-import SafeApiKit from "@safe-global/api-kit";
-import { SafeFactory, SafeAccountConfig } from '@safe-global/protocol-kit'
+const ethers = require('ethers');
+const EthersAdapter = require("@safe-global/protocol-kit")
+const sapi = require("@safe-global/api-kit")
+const SafeFactory = require("@safe-global/protocol-kit");
+const SafeAccountConfig = require("@safe-global/protocol-kit");
 
 const Home = () => {
   const [providerState] = useContext(XmtpContext);
@@ -27,7 +28,7 @@ const Home = () => {
   const [isNewMsg, setIsNewMsg] = useState(false);
 
   const sendNewMessage = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    let provider = new ethers.providers.Web3Provider(window.ethereum);
     provider.send('eth_requestAccounts', []);
     let signer = provider.getSigner();
 
@@ -42,7 +43,7 @@ const Home = () => {
     else {
       if ("/safe" === msgTxt.substring(0, 5)) {
         console.log("In ")
-        console.log(`Selected Convo :` + peerAddress)
+        console.log(`Selected Convo :` + selectedConvo)
         provider = new ethers.providers.Web3Provider(window.ethereum);
         provider.send('eth_requestAccounts', []);
         signer = provider.getSigner();
@@ -59,9 +60,9 @@ const Home = () => {
           const safeAccountConfig = {
             owners: [
               await signer.getAddress(),
-              "0xA85CCf0862131b38A898a3afE860797dCBfc08FD"
+              selectedConvo
             ],
-            threshold: 1,
+            threshold: 2,
             // ... (Optional params)
           }
           const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
@@ -70,6 +71,7 @@ const Home = () => {
       
           console.log('Your Safe has been deployed:')
           console.log(`https://goerli.etherscan.io/address/${safeAddress}`)
+          sendMessage(`Your Safe app with 2 Signers have been created ,please visit : https://app.safe.global/gor:${safeAddress}`)
           console.log(`https://app.safe.global/gor:${safeAddress}`)
         }catch(e){
           console.log(`Error is ${e}`);
