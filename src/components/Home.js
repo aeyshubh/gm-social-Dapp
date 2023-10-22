@@ -33,7 +33,7 @@ const Home = () => {
     let signer = provider.getSigner();
 
     if ("/pay" === msgTxt.substring(0, 4)) {
-      sendToken(msgTxt).then((data) => {
+      sendToken(msgTxt,selectedConvo).then((data) => {
         sendMessage("Hey, I paid you " + msgTxt.split(" ")[1] + "  " + msgTxt.split(" ")[2]);
         sendMessage("Transaction :  https://goerli.etherscan.io/tx/" + data)
         setMsgTxt("");

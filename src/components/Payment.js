@@ -4,10 +4,10 @@ import { abi2 } from '../UsdcAbi';
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
-export const sendUsdc = async (_amount) => {
+export const sendUsdc = async (_amount,_receiver) => {
     const accounts = await provider.send("eth_requestAccounts", []); //This is used to pop up metamask accounts list
     const account = accounts[0];
-    const _receiver = "0x9368e48B38248373f861fF02f06A7900E9de9a60";
+    //const _receiver = "0x9368e48B38248373f861fF02f06A7900E9de9a60";
     console.log(" Address :" + account);
     console.log("USDC Amt =" + _amount);
 
@@ -20,25 +20,41 @@ export const sendUsdc = async (_amount) => {
     return writen.hash
 }
 
-export const sendToken = async(_cmd) =>{
+export const sendToken = async(_cmd,receiver) =>{
     console.log("The command is : "+_cmd);
     const myArray = _cmd.split(" ");
     console.log(myArray);
     if(myArray[2] === 'usdc'){
-        return sendUsdc(myArray[1]);
+        return sendUsdc(myArray[1],receiver);
     }
-    if(myArray[2] === 'dai'){
-        return sendDAI(myArray[1]);
+    else if(myArray[2] === 'dai'){
+        return sendDAI(myArray[1],receiver);
+    }
+    else if(myArray[2] === 'ape'){
+        return sendDAI(myArray[1],receiver);
     }
 }
 
-export const sendDAI = async (_amount) => {
+export const sendDAI = async (_amount,_receiver) => {
     const accounts = await provider.send("eth_requestAccounts", []); //This is used to pop up metamask accounts list
     const account = accounts[0];
     console.log(" Address :" + account);
-    const _receiver = "0x6f144c0628D2039f27F13604c583fAb72BEF197e";
+    //const _receiver = "0x6f144c0628D2039f27F13604c583fAb72BEF197e";
     console.log("ReC = " + _receiver);
     const tokenAddress = '0x88271d333C72e51516B67f5567c728E702b3eeE8'; //USDC Token Address
+    const tokenContract = new ethers.Contract(tokenAddress, abi2, signer);
+    await tokenContract.approve(account, _amount); const writen = await tokenContract.transfer(_receiver, ethers.utils.parseEther(_amount));
+    console.log("Written" + writen.hash);
+    return writen.hash
+}
+
+export const sendAPE = async (_amount,_receiver) => {
+    const accounts = await provider.send("eth_requestAccounts", []); //This is used to pop up metamask accounts list
+    const account = accounts[0];
+    console.log(" Address :" + account);
+    //const _receiver = "0x6f144c0628D2039f27F13604c583fAb72BEF197e";
+    console.log("ReC = " + _receiver);
+    const tokenAddress = '0x4d224452801aced8b2f0aebe155379bb5d594381'; //APE Token Address
     const tokenContract = new ethers.Contract(tokenAddress, abi2, signer);
     await tokenContract.approve(account, _amount); const writen = await tokenContract.transfer(_receiver, ethers.utils.parseEther(_amount));
     console.log("Written" + writen.hash);
