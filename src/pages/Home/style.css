@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+.bg-human {
+    position: fixed;
+    top:10%;
+    right: 10%;
+    width: 500px;
+}
+
+.container3 {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container3 .content {
+    /* font-family: 'Special Elite', cursive; */
+    font-family: 'Poiret One', cursive;
+    font-size: 2.4em;
+    border-bottom: 10px solid #3b69ff;
+    width: auto;
+    font-weight: 500;
+}
+
+.container3 p:nth-child(3) {
+    position: fixed;
+    top: 10%;
+    left: 40%;
+}
+
+.container3 p:nth-child(4) {
+    position: fixed;
+    top: 40%;
+    left: 30%;
+}
+
+.container3 p:nth-child(5) {
+    position: fixed;
+    top: 70%;
+    left: 50%;
+}
