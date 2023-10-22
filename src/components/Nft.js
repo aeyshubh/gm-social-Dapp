@@ -15,10 +15,10 @@ function Nft(){
 
   //This function will fetch nft associated with wallet address
   function fetchNft(){
-    axios.get(`https://polygon-mainnet.g.alchemy.com/nft/v2/OLgzd6IgyTBVkfCr4jw24GBbck9Rm0-H/getNFTs/?owner=${peeraddress}`)
-      .then((data)=>{
-          setLink(data.data.ownedNfts);
-      })
+    // axios.get(`https://polygon-mainnet.g.alchemy.com/nft/v2/OLgzd6IgyTBVkfCr4jw24GBbck9Rm0-H/getNFTs/?owner=${peeraddress}`)
+    //   .then((data)=>{
+    //       setLink(data.data.ownedNfts);
+    //   })
   }
 
   useEffect(() => {
